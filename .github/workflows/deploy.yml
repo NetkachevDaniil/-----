@@ -2,14 +2,14 @@ name: Deploy Static Site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # Запускать при пуше в main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      pages: write      # Даёт доступ к GitHub Pages
-      id-token: write   # Позволяет Actions авторизоваться
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -21,7 +21,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'site/'  # Указываем папку site как источник
+          path: '.'  # Измените 'site/' на '.' чтобы использовать корень репозитория
 
   deploy-to-pages:
     needs: deploy
@@ -36,4 +36,5 @@ jobs:
 
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
