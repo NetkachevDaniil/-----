@@ -1,2 +1,2 @@
-# -----
-Репозиторий для лабораторных работ по курсу Веб-технологий
+# web-tech_course
+A repository for laboratory work on the web-technology course
