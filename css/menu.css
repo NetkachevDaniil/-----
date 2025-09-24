@@ -1,0 +1,76 @@
+/* menu.css */
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.dish-item {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    border-radius: 35px;
+    cursor: pointer;
+    background-color: white;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    transition: all 0.3s ease;
+}
+
+.dish-item:hover {
+    border: 2px solid tomato;
+}
+
+.dish-item:hover button {
+    background-color: tomato;
+    color: white;
+}
+
+.dish-image {
+    width: 100%;
+    border-radius: 35px;
+    margin-bottom: 15px;
+}
+
+.dish-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.dish-name {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    flex-grow: 1;
+}
+
+.dish-weight {
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.dish-button {
+    background-color: #f1eee9;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: auto;
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность для страницы меню */
+@media (max-width: 800px) {
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+    
+    h2 {
+        text-align: center;
+    }
+}
