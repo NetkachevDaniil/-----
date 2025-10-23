@@ -40,6 +40,7 @@ function displayDishesInSection(sectionId, dishesArray) {
     });
 }
 
+// В функции createDishElement в displayDishes.js
 function createDishElement(dish) {
     const dishItem = document.createElement('div');
     dishItem.className = 'dish-item';
