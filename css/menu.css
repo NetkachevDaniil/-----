@@ -256,3 +256,43 @@
     color: #e74c3c;
     text-align: center;
 }
+/* Стили для фильтров */
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 2px solid #e74c3c;
+    background-color: white;
+    color: #e74c3c;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Tektur', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: #f8f9fa;
+}
+
+.filter-btn.active {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Адаптивность для фильтров */
+@media (max-width: 600px) {
+    .filters {
+        justify-content: center;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
