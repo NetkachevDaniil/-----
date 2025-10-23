@@ -193,16 +193,17 @@
     <script src="js/orderLogic.js"></script>
     
     <script>
-        function resetOrder() {
-            // Сбрасываем выбранные блюда при сбросе формы
-            setTimeout(() => {
-                if (typeof updateOrderDisplay === 'function') {
-                    selectedDishes = { soup: null, main: null, drink: null };
-                    updateOrderDisplay();
-                }
-            }, 0);
-        }
-    </script>
+    function resetOrder() {
+        // Сбрасываем выбранные блюда при сбросе формы
+        setTimeout(() => {
+            if (typeof updateOrderDisplay === 'function') {
+                selectedDishes = { soup: null, main: null, salad: null, drink: null, dessert: null };
+                updateOrderDisplay();
+            }
+        }, 0);
+    }
+</script>
 </body>
 </html>
+
 
