@@ -35,7 +35,7 @@ const dishes = [
         price: 185,
         category: 'soup',
         count: '330 г',
-        image: 'https://via.placeholder.com/300x200?text=Грибной+суп',
+        image: 'https://static.tildacdn.com/tild6139-3265-4436-a439-386136346130/b614e9cc1ffd741cc7f3.png?text=Грибной+суп',
         kind: 'veg'
     },
     {
@@ -283,3 +283,4 @@ const dishes = [
         kind: 'large'
     }
 ];
+
