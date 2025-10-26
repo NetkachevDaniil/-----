@@ -1,31 +1,33 @@
-// orderLogic.js - добавляем обработку новых категорий
+// orderLogic.js - логика выбора блюд
 document.addEventListener('DOMContentLoaded', function() {
-    let selectedDishes = {
-        soup: null,
-        main: null,
-        salad: null,
-        drink: null,
-        dessert: null
-    };
+    if (!window.selectedDishes) {
+        window.selectedDishes = {
+            soup: null,
+            main: null,
+            salad: null,
+            drink: null,
+            dessert: null
+        };
+    }
     
-    // Инициализируем отображение заказа
     updateOrderDisplay();
     
-    // Добавляем обработчики событий для кнопок "Добавить"
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('dish-button')) {
             const dishItem = e.target.closest('.dish-item');
             const dishKeyword = dishItem.getAttribute('data-dish');
-            const dish = dishes.find(d => d.keyword === dishKeyword);
             
-            if (dish) {
-                selectDish(dish);
+            if (typeof dishes !== 'undefined') {
+                const dish = dishes.find(d => d.keyword === dishKeyword);
+                if (dish) {
+                    selectDish(dish);
+                }
             }
         }
     });
     
     function selectDish(dish) {
-        selectedDishes[dish.category] = dish;
+        window.selectedDishes[dish.category] = dish;
         updateOrderDisplay();
     }
     
@@ -33,111 +35,90 @@ document.addEventListener('DOMContentLoaded', function() {
         const orderContainer = document.getElementById('order-summary');
         if (!orderContainer) return;
         
-        const selectedArray = Object.values(selectedDishes).filter(dish => dish !== null);
+        const selectedArray = Object.values(window.selectedDishes).filter(dish => dish !== null);
         
         if (selectedArray.length === 0) {
-            // Если ничего не выбрано
             orderContainer.innerHTML = `
                 <div class="order-empty">
                     <h3>Ничего не выбрано</h3>
                 </div>
             `;
-            document.getElementById('order-total').style.display = 'none';
+            const totalElement = document.getElementById('order-total');
+            if (totalElement) {
+                totalElement.style.display = 'none';
+            }
         } else {
-            // Отображаем выбранные блюда по категориям
             let orderHTML = '<h3>Ваш заказ</h3>';
             let totalPrice = 0;
             
-            // Супы
-            if (selectedDishes.soup) {
+            if (window.selectedDishes.soup) {
                 orderHTML += `<div class="order-category">
                     <strong>Суп</strong><br>
-                    ${selectedDishes.soup.name} ${selectedDishes.soup.price}Р
+                    ${window.selectedDishes.soup.name} ${window.selectedDishes.soup.price}Р
                 </div>`;
-                totalPrice += selectedDishes.soup.price;
+                totalPrice += window.selectedDishes.soup.price;
             }
             
-            // Главные блюда
-            if (selectedDishes.main) {
+            if (window.selectedDishes.main) {
                 orderHTML += `<div class="order-category">
                     <strong>Главное блюдо</strong><br>
-                    ${selectedDishes.main.name} ${selectedDishes.main.price}Р
+                    ${window.selectedDishes.main.name} ${window.selectedDishes.main.price}Р
                 </div>`;
-                totalPrice += selectedDishes.main.price;
+                totalPrice += window.selectedDishes.main.price;
             }
             
-            // Салаты
-            if (selectedDishes.salad) {
+            if (window.selectedDishes.salad) {
                 orderHTML += `<div class="order-category">
                     <strong>Салат или стартер</strong><br>
-                    ${selectedDishes.salad.name} ${selectedDishes.salad.price}Р
+                    ${window.selectedDishes.salad.name} ${window.selectedDishes.salad.price}Р
                 </div>`;
-                totalPrice += selectedDishes.salad.price;
+                totalPrice += window.selectedDishes.salad.price;
             }
             
-            // Напитки
-            if (selectedDishes.drink) {
+            if (window.selectedDishes.drink) {
                 orderHTML += `<div class="order-category">
                     <strong>Напиток</strong><br>
-                    ${selectedDishes.drink.name} ${selectedDishes.drink.price}Р
+                    ${window.selectedDishes.drink.name} ${window.selectedDishes.drink.price}Р
                 </div>`;
-                totalPrice += selectedDishes.drink.price;
+                totalPrice += window.selectedDishes.drink.price;
             }
             
-            // Десерты
-            if (selectedDishes.dessert) {
+            if (window.selectedDishes.dessert) {
                 orderHTML += `<div class="order-category">
                     <strong>Десерт</strong><br>
-                    ${selectedDishes.dessert.name} ${selectedDishes.dessert.price}Р
+                    ${window.selectedDishes.dessert.name} ${window.selectedDishes.dessert.price}Р
                 </div>`;
-                totalPrice += selectedDishes.dessert.price;
+                totalPrice += window.selectedDishes.dessert.price;
             }
             
             orderContainer.innerHTML = orderHTML;
             
-            // Обновляем итоговую стоимость
             const totalElement = document.getElementById('order-total');
-            totalElement.innerHTML = `<strong>Стоимость заказа</strong><br>${totalPrice}Р`;
-            totalElement.style.display = 'block';
+            if (totalElement) {
+                totalElement.innerHTML = `<strong>Стоимость заказа</strong><br>${totalPrice}Р`;
+                totalElement.style.display = 'block';
+            }
             
-            // Обновляем скрытые поля формы
             updateFormFields();
         }
     }
     
     function updateFormFields() {
-        // Создаем скрытые поля для новых категорий если их нет
-        if (!document.getElementById('salad-select')) {
-            const saladInput = document.createElement('input');
-            saladInput.type = 'hidden';
-            saladInput.id = 'salad-select';
-            saladInput.name = 'salad';
-            document.getElementById('order-form').appendChild(saladInput);
-        }
+        const form = document.getElementById('order-form');
+        if (!form) return;
         
-        if (!document.getElementById('dessert-select')) {
-            const dessertInput = document.createElement('input');
-            dessertInput.type = 'hidden';
-            dessertInput.id = 'dessert-select';
-            dessertInput.name = 'dessert';
-            document.getElementById('order-form').appendChild(dessertInput);
-        }
-        
-        // Обновляем значения
         const soupSelect = document.getElementById('soup-select');
         const mainSelect = document.getElementById('main-course-select');
         const saladSelect = document.getElementById('salad-select');
         const drinkSelect = document.getElementById('drink-select');
         const dessertSelect = document.getElementById('dessert-select');
         
-        if (soupSelect) soupSelect.value = selectedDishes.soup ? selectedDishes.soup.keyword : '';
-        if (mainSelect) mainSelect.value = selectedDishes.main ? selectedDishes.main.keyword : '';
-        if (saladSelect) saladSelect.value = selectedDishes.salad ? selectedDishes.salad.keyword : '';
-        if (drinkSelect) drinkSelect.value = selectedDishes.drink ? selectedDishes.drink.keyword : '';
-        if (dessertSelect) dessertSelect.value = selectedDishes.dessert ? selectedDishes.dessert.keyword : '';
+        if (soupSelect) soupSelect.value = window.selectedDishes.soup ? window.selectedDishes.soup.keyword : '';
+        if (mainSelect) mainSelect.value = window.selectedDishes.main ? window.selectedDishes.main.keyword : '';
+        if (saladSelect) saladSelect.value = window.selectedDishes.salad ? window.selectedDishes.salad.keyword : '';
+        if (drinkSelect) drinkSelect.value = window.selectedDishes.drink ? window.selectedDishes.drink.keyword : '';
+        if (dessertSelect) dessertSelect.value = window.selectedDishes.dessert ? window.selectedDishes.dessert.keyword : '';
     }
     
-    // Делаем функцию глобальной для reset
-    window.selectedDishes = selectedDishes;
     window.updateOrderDisplay = updateOrderDisplay;
 });
