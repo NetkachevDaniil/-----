@@ -205,7 +205,7 @@ const dishes = [
         price: 310,
         category: 'salad',
         count: '235 г',
-        image: 'https://static.vecteezy.com/system/resources/thumbnails/021/509/077/small_2x/white-plate-with-caprese-salad-isolated-on-a-transparent-background-png.png?text=Капрезе',
+        image: 'https://cdn.prod.website-files.com/63bb7fe09d70bb7dc8e86719/63d4c0d3958421021123f2ca_1.webp?text=Капрезе',
         kind: 'veg'
     },
     {
@@ -283,4 +283,5 @@ const dishes = [
         kind: 'large'
     }
 ];
+
 
