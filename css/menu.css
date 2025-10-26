@@ -1,4 +1,200 @@
 /* menu.css */
+
+#available-combos {
+    background-color: transparent;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+#available-combos h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #e74c3c;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.combos-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.combo-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+}
+
+.combo-set {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: transparent;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    min-width: 200px;
+}
+
+.combo-set:hover {
+    background-color: rgba(231, 76, 60, 0.05);
+    border-color: rgba(231, 76, 60, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.combo-item-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    min-width: 60px;
+    transition: all 0.3s ease;
+}
+
+.combo-item-vertical:hover {
+    transform: translateY(-3px);
+}
+
+.combo-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}
+
+.combo-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.combo-item-vertical:hover .combo-icon {
+    transform: scale(1.15);
+}
+
+.combo-label {
+    font-size: 0.8rem;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.dessert-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.dessert-note {
+    font-size: 0.75rem;
+    color: #666;
+    font-style: italic;
+    margin: 0;
+    text-align: center;
+    max-width: 140px;
+}
+
+.char-counter {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: right;
+    margin-top: 5px;
+}
+
+#comments {
+    resize: vertical;
+    min-height: 80px;
+    max-height: 150px;
+}
+
+.notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.notification {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: notificationAppear 0.4s ease-out;
+}
+
+@keyframes notificationAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.notification-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.notification p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #333;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.notification-ok-btn {
+    background-color: #f1eee9;
+    border: 2px solid #ddd;
+    padding: 12px 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Tektur', sans-serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    color: #333;
+    font-weight: 500;
+}
+
+.notification-ok-btn:hover {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+    transform: translateY(-2px);
+}
+
 .menu-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -15,24 +211,16 @@
     transition: all 0.3s ease;
 }
 
-/* Вместо display: none используем opacity и pointer-events */
-.dish-item.filtered-out {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    position: absolute;
-    transform: scale(0.95);
-}
-
-.dish-item:hover:not(.filtered-out) {
+.dish-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .dish-image {
     width: 100%;
-height: 300px;
-    object-fit: cover;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
     border-radius: 12px;
     margin-bottom: 15px;
 }
@@ -53,7 +241,7 @@ height: 300px;
     margin-bottom: 10px;
     line-height: 1.3;
     text-align: center;
-    height: 60px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,16 +269,15 @@ height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Фиксируем ширину */
-    box-sizing: border-box; /* Учитываем padding в ширине */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.dish-button:hover:not(.filtered-out *) {
+.dish-button:hover {
     background-color: tomato;
     color: white;
 }
 
-/* Остальные стили без изменений */
 #order-form-section {
     background-color: white;
     padding: 30px;
@@ -103,6 +290,7 @@ height: 300px;
     text-align: center;
     margin-bottom: 30px;
     color: #e74c3c;
+    font-size: 2.5rem;
 }
 
 .form-container {
@@ -230,13 +418,12 @@ height: 300px;
     background-color: #c0392b;
 }
 
-/* Стили для фильтров */
 .filters {
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: left;
 }
 
 .filter-btn {
@@ -296,18 +483,77 @@ height: 300px;
     border-radius: 8px;
 }
 
-/* Адаптивность для страницы меню */
+#soups h2,
+#main-dishes h2,
+#salads h2,
+#drinks h2,
+#desserts h2 {
+    color: #e74c3c;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: left;
+}
+
 @media (max-width: 900px) {
     .menu-container {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .dish-item {
-        height: 420px;
+    .dish-image {
+        max-height: 200px;
     }
     
-    .dish-image {
-        height: 180px;
+    .form-container {
+        gap: 30px;
+    }
+    
+    #available-combos h2,
+    #order-form-section h2 {
+        font-size: 2.2rem;
+    }
+    
+    .combo-set {
+        min-width: 180px;
+    }
+    
+    .combo-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .combo-label {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .combo-row {
+        gap: 15px;
+    }
+    
+    .combo-set {
+        min-width: 160px;
+        padding: 12px;
+    }
+    
+    .combo-item-vertical {
+        min-width: 50px;
+        padding: 6px;
+    }
+    
+    .combo-icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .combo-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .combo-label {
+        font-size: 0.7rem;
     }
 }
 
@@ -317,12 +563,11 @@ height: 300px;
     }
     
     .dish-item {
-        height: 400px;
         padding: 20px;
     }
     
     .dish-image {
-        height: 160px;
+        max-height: 180px;
     }
     
     h2 {
@@ -345,5 +590,129 @@ height: 300px;
     .filter-btn {
         padding: 8px 16px;
         font-size: 0.9rem;
+    }
+    
+    .notification {
+        padding: 30px 20px;
+    }
+    
+    .notification p {
+        font-size: 1.1rem;
+    }
+    
+    #comments {
+        min-height: 60px;
+        max-height: 120px;
+    }
+    
+    #available-combos h2,
+    #order-form-section h2,
+    #soups h2,
+    #main-dishes h2,
+    #salads h2,
+    #drinks h2,
+    #desserts h2 {
+        font-size: 2rem;
+    }
+    
+    .combo-set {
+        min-width: 140px;
+    }
+    
+    .combo-row {
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 480px) {
+    .combo-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .combo-set {
+        min-width: 100%;
+        max-width: 280px;
+        justify-content: space-around;
+    }
+    
+    .combo-item-vertical {
+        min-width: 55px;
+    }
+    
+    .combo-icon-wrapper {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .combo-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .combo-label {
+        font-size: 0.75rem;
+    }
+    
+    .dessert-note {
+        font-size: 0.7rem;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        width: 95%;
+    }
+    
+    section {
+        padding: 15px;
+    }
+    
+    .dish-item {
+        padding: 15px;
+    }
+    
+    .dish-image {
+        max-height: 160px;
+    }
+    
+    .dish-price {
+        font-size: 1.2rem;
+    }
+    
+    .dish-name {
+        font-size: 1rem;
+        min-height: 50px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    nav ul li {
+        margin-left: 15px;
+    }
+    
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    
+    .filters {
+        gap: 5px;
+    }
+    
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .combo-set {
+        padding: 10px;
+    }
+    
+    .combo-item-vertical {
+        padding: 5px;
     }
 }
