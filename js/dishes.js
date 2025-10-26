@@ -205,7 +205,7 @@ const dishes = [
         price: 310,
         category: 'salad',
         count: '235 г',
-        image: 'https://cdn.prod.website-files.com/63bb7fe09d70bb7dc8e86719/63d4c0d3958421021123f2ca_1.webp?text=Капрезе',
+        image: 'https://png.pngtree.com/png-vector/20240602/ourmid/pngtree-caprese-salad-from-italy-png-image_12597935.png?text=Капрезе',
         kind: 'veg'
     },
     {
@@ -283,5 +283,6 @@ const dishes = [
         kind: 'large'
     }
 ];
+
 
 
