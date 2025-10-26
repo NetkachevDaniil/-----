@@ -1,9 +1,12 @@
 // displayDishes.js - обновленная версия
 document.addEventListener('DOMContentLoaded', function() {
-    // Сортируем блюда по названию в алфавитном порядке
+    if (typeof dishes === 'undefined') {
+        console.error('dishes is not defined');
+        return;
+    }
+
     const sortedDishes = dishes.sort((a, b) => a.name.localeCompare(b.name));
     
-    // Группируем блюда по категориям
     const dishesByCategory = {
         soup: sortedDishes.filter(dish => dish.category === 'soup'),
         main: sortedDishes.filter(dish => dish.category === 'main'),
@@ -12,14 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
         dessert: sortedDishes.filter(dish => dish.category === 'dessert')
     };
     
-    // Отображаем блюда в соответствующих секциях
     displayDishesInSection('soups', dishesByCategory.soup);
     displayDishesInSection('main-dishes', dishesByCategory.main);
     displayDishesInSection('salads', dishesByCategory.salad);
     displayDishesInSection('drinks', dishesByCategory.drink);
     displayDishesInSection('desserts', dishesByCategory.dessert);
     
-    // Инициализируем фильтрацию
     initFilters();
 });
 
@@ -30,17 +31,14 @@ function displayDishesInSection(sectionId, dishesArray) {
     const menuContainer = section.querySelector('.menu-container');
     if (!menuContainer) return;
     
-    // Очищаем контейнер
     menuContainer.innerHTML = '';
     
-    // Создаем карточки для каждого блюда
     dishesArray.forEach(dish => {
         const dishElement = createDishElement(dish);
         menuContainer.appendChild(dishElement);
     });
 }
 
-// В функции createDishElement в displayDishes.js
 function createDishElement(dish) {
     const dishItem = document.createElement('div');
     dishItem.className = 'dish-item';
@@ -58,7 +56,6 @@ function createDishElement(dish) {
     return dishItem;
 }
 
-// Функция для инициализации фильтров
 function initFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     
@@ -68,16 +65,13 @@ function initFilters() {
             const menuContainer = section.querySelector('.menu-container');
             const kind = this.getAttribute('data-kind');
             
-            // Убираем активный класс со всех кнопок в этой секции
             const allButtons = section.querySelectorAll('.filter-btn');
             allButtons.forEach(btn => btn.classList.remove('active'));
             
-            // Если кликнули на активный фильтр, снимаем фильтрацию
             if (this.classList.contains('active')) {
                 this.classList.remove('active');
                 showAllDishes(menuContainer);
             } else {
-                // Добавляем активный класс нажатой кнопке
                 this.classList.add('active');
                 filterDishes(menuContainer, kind);
             }
